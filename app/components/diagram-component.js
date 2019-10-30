@@ -58,8 +58,12 @@ export default Component.extend({
             height: 50,
             fill: 'gray',
             stroke: 'black',
-            strokeWidth: 2,
-            draggable: true
+            strokeWidth: 1,
+            draggable: true,
+            shadowColor: 'silver',
+            shadowBlur: 0,
+            shadowOffset: { x: 8, y: 8 },
+            shadowOpacity: 0.6
         });
         // add the shape to the layer
         layer.add(rect1);
@@ -167,6 +171,10 @@ export default Component.extend({
             stroke: 'black',
             strokeWidth: 4,
             draggable: true,
+            shadowColor: 'maroon',
+            shadowBlur: 0,
+            shadowOffset: { x: 8, y: 8 },
+            shadowOpacity: 0.3
             //cancelBubble();
 
         });
@@ -200,6 +208,10 @@ export default Component.extend({
             outerRadius: 70,
             fill: 'teal',
             draggable: true,
+            shadowColor: 'teal',
+            shadowBlur: 0,
+            shadowOffset: { x: 8, y: 8 },
+            shadowOpacity: 0.3,
             stopPropagation() { },
             scale: {
                 x: 2,
