@@ -5,20 +5,20 @@ export default Component.extend({
     didInsertElement() {
         this._super(...arguments);
         let width = $('#container1').width();
-        console.log("print width" ,width);
+        console.log("print width", width);
         let height = $('#container1').height();
-        console.log("print height" ,height);
+        console.log("print height", height);
         console.log(width);
 
         let stage = new Konva.Stage({
             container: 'container1',
-            x:200,
+            x: 200,
             y: 200,
             width: width,
             height: height
         });
 
-        // this.drawRectangle1(stage);
+         this.drawRectangle1(stage);
         // this.drawRectangle2(stage);
         // this.drawRectangle3(stage);
         // this.drawCircle1(stage);
@@ -27,52 +27,28 @@ export default Component.extend({
 
         //this.drawtriangle(stage);
         this.drawCircle(stage);
-
+        this.drawStar(stage);
+        this.drawButton(stage);
     },
 
-    // writeMessage(mosX, mosY, layer) {
-      
-    //     let text = new Konva.Text({
-    //         x: 10,
-    //         y: 10,
-    //         fontFamily: 'Calibri',
-    //         fontSize: 24,
-    //         text: '',
-    //         fill: 'black'
-    //     });
-    //     text.text( 'x:' + mosX + 'y:' + mosY);
-    //     layer.add(text);
-    //     layer.draw();
-    //     stage.add(layer);
-       
-    // },
+    drawRectangle1(stage) {
+       let layer = new Konva.Layer();
 
-    //  let text = new Konva.Text({
-    //     x: 10,
-    //     y: 10,
-    //     fontFamily: 'Calibri',
-    //     fontSize: 24,
-    //     text: '',
-    //     fill: 'black'
-    //   });
-    // drawRectangle1(stage) {
-    //    let layer = new Konva.Layer();
+       let rect1 = new Konva.Rect({
+            x: 10,
+            y: 20,
+            width: 100,
+            height: 50,
+            fill: 'gray',
+            stroke: 'black',
+            strokeWidth: 2,
+            draggable: true
+        });
+        // add the shape to the layer
+        layer.add(rect1);
 
-    //    let rect1 = new Konva.Rect({
-    //         x: 10,
-    //         y: 20,
-    //         width: 100,
-    //         height: 50,
-    //         fill: 'green',
-    //         stroke: 'black',
-    //         strokeWidth: 2,
-    //         draggable: true
-    //     });
-    //     // add the shape to the layer
-    //     layer.add(rect1);
-
-    //     stage.add(layer);
-    // },
+        stage.add(layer);
+    },
     // drawRectangle2(stage) {
     //    let layer = new Konva.Layer();
     //    let rect2 = new Konva.Rect({
@@ -170,23 +146,25 @@ export default Component.extend({
             x: 230,
             y: 100,
             radius: 60,
-            fill: 'red',
+            fill: 'maroon',
             stroke: 'black',
             strokeWidth: 4,
-            draggable: true
+            draggable: true,
+            //cancelBubble();
+
         });
-        circle.on('click', function(evt) {
-            alert('You clicked the circle!');
+        circle.on('click', function (evt) {
+            alert('You clicked on The Circle!');
             evt.cancelBubble = true;
-          });
-    
-          group.on('click', function() {
+        });
+
+        group.on('click', function () {
             alert('You clicked on the group!');
-          });
-    
-          layer.on('click', function() {
+        });
+
+        layer.on('click', function () {
             alert('You clicked on the layer!');
-          });
+        });
         // add the shape to the layer
         group.add(circle);
 
@@ -194,7 +172,86 @@ export default Component.extend({
         stage.add(layer);
     },
 
-    // drawtriangle(stage) {
+    drawStar(stage) {
+        let layer = new Konva.Layer();
+
+        let star = new Konva.Star({
+            x: stage.width() / 4,
+            y: stage.height() / 4,
+            numPoints: 7,
+            innerRadius: 40,
+            outerRadius: 70,
+            fill: 'teal',
+            draggable: true,
+            stopPropagation() { },
+            scale: {
+                x: 2,
+                y: 0.5
+            },
+            name: 'The Star'
+        });
+
+        layer.on('click', function (evt) {
+            // get the shape that was clicked on
+            var shape = evt.target;
+            alert('you clicked on "' + shape.name() + '"');
+        });
+
+        layer.add(star);
+
+        // add the layer to the stage
+        stage.add(layer);
+    },
+
+
+    drawButton(stage) {
+        var layer = new Konva.Layer();
+        stage.add(layer);
+
+        var button = new Konva.Label({
+            x: 20,
+            y: 20,
+            opacity: 0.75
+        });
+        
+        layer.add(button);
+
+        button.add(new Konva.Tag({
+            fill: 'black',
+            lineJoin: 'round',
+            shadowColor: 'black',
+            shadowBlur: 10,
+            shadowOffset: 10,
+            shadowOpacity: 0.5
+        }));
+
+        // button.add(new Konva.Text({
+        //     //text: 'Canvas button',
+        //     fontFamily: 'Calibri',
+        //     fontSize: 18,
+        //     padding: 5,
+        //     fill: 'white'
+        // }));
+
+
+        button.on('click', () => {
+            alert('clicked on canvas button');
+        })
+
+        document.querySelector('#button1').addEventListener('click', () => {
+            alert('clicked on Circle button');
+        })
+        document.querySelector('#button2').addEventListener('click', () => {
+            alert('clicked on Rectangle button');
+        })
+        document.querySelector('#button3').addEventListener('click', () => {
+            alert('clicked on Star button');
+        })
+
+        layer.draw();
+    },
+
+
     //     let context =this;
     //     let layer = new Konva.Layer();
 
@@ -209,7 +266,7 @@ export default Component.extend({
     //         draggable: true
     //     });
 
-       
+
     //     triangle.on('mouseout', function () {
     //         writeMessage('Mouseout triangle');
     //     });
@@ -222,9 +279,9 @@ export default Component.extend({
     //         context.writeMessage(x, y, layer);
     //     });
 
-        // add the shape to the layer
-        //layer.add(triangle);
-        //stage.add(layer);
+    // add the shape to the layer
+    //layer.add(triangle);
+    //stage.add(layer);
     //},
 },
 
