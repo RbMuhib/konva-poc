@@ -4,14 +4,16 @@ export default Component.extend({
 
     didInsertElement() {
         this._super(...arguments);
-        let width = window.innerWidth;
-        let height = window.innerHeight;
+        let width = $('#container1').width();
+        console.log("print width" ,width);
+        let height = $('#container1').height();
+        console.log("print height" ,height);
         console.log(width);
 
         let stage = new Konva.Stage({
             container: 'container1',
-            x: 500,
-            y: 100,
+            x:200,
+            y: 200,
             width: width,
             height: height
         });
@@ -23,27 +25,27 @@ export default Component.extend({
         // this.drawOval1(stage);
         // this.drawWedge1(stage);
 
-        this.drawtriangle(stage);
+        //this.drawtriangle(stage);
         this.drawCircle(stage);
 
     },
 
-    writeMessage(mosX, mosY, layer) {
+    // writeMessage(mosX, mosY, layer) {
       
-        let text = new Konva.Text({
-            x: 10,
-            y: 10,
-            fontFamily: 'Calibri',
-            fontSize: 24,
-            text: '',
-            fill: 'black'
-        });
-        text.text( 'x:' + mosX + 'y:' + mosY);
-        layer.add(text);
-        layer.draw();
-        //stage.add(layer);
+    //     let text = new Konva.Text({
+    //         x: 10,
+    //         y: 10,
+    //         fontFamily: 'Calibri',
+    //         fontSize: 24,
+    //         text: '',
+    //         fill: 'black'
+    //     });
+    //     text.text( 'x:' + mosX + 'y:' + mosY);
+    //     layer.add(text);
+    //     layer.draw();
+    //     stage.add(layer);
        
-    },
+    // },
 
     //  let text = new Konva.Text({
     //     x: 10,
@@ -163,6 +165,7 @@ export default Component.extend({
     // },
     drawCircle(stage) {
         let layer = new Konva.Layer();
+        let group = new Konva.Group();
         let circle = new Konva.Circle({
             x: 230,
             y: 100,
@@ -172,44 +175,57 @@ export default Component.extend({
             strokeWidth: 4,
             draggable: true
         });
-
+        circle.on('click', function(evt) {
+            alert('You clicked the circle!');
+            evt.cancelBubble = true;
+          });
+    
+          group.on('click', function() {
+            alert('You clicked on the group!');
+          });
+    
+          layer.on('click', function() {
+            alert('You clicked on the layer!');
+          });
         // add the shape to the layer
-        layer.add(circle);
+        group.add(circle);
+
+        layer.add(group);
         stage.add(layer);
     },
 
-    drawtriangle(stage) {
-        let context =this;
-        let layer = new Konva.Layer();
+    // drawtriangle(stage) {
+    //     let context =this;
+    //     let layer = new Konva.Layer();
 
-        let triangle = new Konva.RegularPolygon({
-            x: 80,
-            y: 120,
-            sides: 3,
-            radius: 80,
-            fill: '#00D2FF',
-            stroke: 'black',
-            strokeWidth: 4,
-            draggable: true
-        });
+    //     let triangle = new Konva.RegularPolygon({
+    //         x: 80,
+    //         y: 120,
+    //         sides: 3,
+    //         radius: 80,
+    //         fill: '#00D2FF',
+    //         stroke: 'black',
+    //         strokeWidth: 4,
+    //         draggable: true
+    //     });
 
        
-        triangle.on('mouseout', function () {
-            writeMessage('Mouseout triangle');
-        });
+    //     triangle.on('mouseout', function () {
+    //         writeMessage('Mouseout triangle');
+    //     });
 
-        triangle.on('mousemove', function () {
-            let mousePos = stage.getPointerPosition();
-            let x = mousePos.x - 190;
-            let y = mousePos.y - 40;
-            //layer.draw();
-            context.writeMessage(x, y, layer);
-        });
+    //     triangle.on('mousemove', function () {
+    //         let mousePos = stage.getPointerPosition();
+    //         let x = mousePos.x - 190;
+    //         let y = mousePos.y - 40;
+    //         //layer.draw();
+    //         context.writeMessage(x, y, layer);
+    //     });
 
         // add the shape to the layer
-        layer.add(triangle);
-        stage.add(layer);
-    },
+        //layer.add(triangle);
+        //stage.add(layer);
+    //},
 },
 
 );
