@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import $ from 'jquery';
 export default Component.extend({
-
+    flag: '',
     didInsertElement() {
         this._super(...arguments);
         let width = $('#container1').width();
@@ -17,8 +17,25 @@ export default Component.extend({
             width: width,
             height: height
         });
+        stage.on('click', () => {
+            let flag = this.get('flag');
+            console.log(flag);
+            if (flag =='circle-button') {
+                this.drawCircle(stage)
+                console.log(flag);
+            }
+            if (flag =='rectangle-button') {
+                this.drawRectangle1(stage)
+            }
 
-         this.drawRectangle1(stage);
+            if (flag == 'star-button') {
+                this.drawStar(stage)
+            }
+            
+        })
+
+
+        //this.drawRectangle1(stage);
         // this.drawRectangle2(stage);
         // this.drawRectangle3(stage);
         // this.drawCircle1(stage);
@@ -26,15 +43,15 @@ export default Component.extend({
         // this.drawWedge1(stage);
 
         //this.drawtriangle(stage);
-        this.drawCircle(stage);
-        this.drawStar(stage);
+        //this.drawCircle(stage);
+        //this.drawStar(stage);
         this.drawButton(stage);
     },
 
     drawRectangle1(stage) {
-       let layer = new Konva.Layer();
+        let layer = new Konva.Layer();
 
-       let rect1 = new Konva.Rect({
+        let rect1 = new Konva.Rect({
             x: 10,
             y: 20,
             width: 100,
@@ -154,7 +171,7 @@ export default Component.extend({
 
         });
         circle.on('click', function (evt) {
-            alert('You clicked on The Circle!');
+            alert(this.get(drawCircle));
             evt.cancelBubble = true;
         });
 
@@ -205,15 +222,16 @@ export default Component.extend({
 
 
     drawButton(stage) {
-        var layer = new Konva.Layer();
+        let layer = new Konva.Layer();
         stage.add(layer);
+        let context=this;
 
         var button = new Konva.Label({
             x: 20,
             y: 20,
             opacity: 0.75
         });
-        
+
         layer.add(button);
 
         button.add(new Konva.Tag({
@@ -239,13 +257,16 @@ export default Component.extend({
         })
 
         document.querySelector('#button1').addEventListener('click', () => {
-            alert('clicked on Circle button');
+            //alert('clicked on Circle button');
+            context.set('flag', 'circle-button');
         })
         document.querySelector('#button2').addEventListener('click', () => {
-            alert('clicked on Rectangle button');
+            // alert('clicked on Rectangle button');
+            context.set('flag', 'rectangle-button');
         })
         document.querySelector('#button3').addEventListener('click', () => {
-            alert('clicked on Star button');
+            //alert('clicked on Star button');
+            context.set('flag', 'star-button');
         })
 
         layer.draw();
