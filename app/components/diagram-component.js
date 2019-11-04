@@ -12,10 +12,11 @@ export default Component.extend({
 
         let stage = new Konva.Stage({
             container: 'container1',
-            x: 200,
+            x: 600,
             y: 200,
             width: width,
             height: height
+            
         });
         stage.on('click', () => {
             let flag = this.get('flag');
@@ -279,6 +280,10 @@ export default Component.extend({
         document.querySelector('#button3').addEventListener('click', () => {
             //alert('clicked on Star button');
             context.set('flag', 'star-button');
+        })
+        document.querySelector('#button4').addEventListener('click', () => {
+            //alert('clicked on Save button');
+            context.set('flag', 'save-button');
         })
 
         layer.draw();
