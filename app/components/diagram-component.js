@@ -281,13 +281,16 @@ export default Component.extend({
             //alert('clicked on Star button');
             context.set('flag', 'star-button');
         })
+        
         document.querySelector('#button4').addEventListener('click', () => {
             //alert('clicked on Save button');
             context.set('flag', 'save-button');
         })
-
+        
         layer.draw();
+        
     },
+   
 
 
     //     let context =this;
