@@ -32,6 +32,9 @@ export default Component.extend({
             if (flag == 'star-button') {
                 this.drawStar(stage)
             }
+            if (flag == 'arrow-button'){
+                this.drawArrow(stage)
+            }
             
         })
 
@@ -74,20 +77,20 @@ export default Component.extend({
     drawArrow(stage) {
         let layer = new Konva.Layer();
 
-        let arrow = new Konva.Rect({
-            x: 10,
-            y: 20,
+        let arrow = new Konva.Arrow({
             width: 100,
             height: 50,
-            fill: 'gray',
-            stroke: 'black',
-            strokeWidth: 1,
-            draggable: true,
-            shadowColor: 'silver',
-            shadowBlur: 0,
-            shadowOffset: { x: 8, y: 8 },
-            shadowOpacity: 0.6
+            x: stage.width() / 4,
+          y: stage.height() / 4,
+          
+          points: [0, 0, width / 2, height / 2],
+          pointerLength: 20,
+          pointerWidth: 20,
+          fill: 'black',
+          stroke: 'black',
+          strokeWidth: 4
         });
+  
         // add the shape to the layer
         layer.add(arrow);
 
@@ -309,7 +312,7 @@ export default Component.extend({
             context.set('flag', 'save-button');
         })
         document.querySelector('#button5').addEventListener('click', () => {
-            //alert('clicked on Save button');
+            //alert('clicked on arrow button');
             context.set('flag', 'arrow-button');
         })
         layer.draw();
