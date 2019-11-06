@@ -71,6 +71,28 @@ export default Component.extend({
 
         stage.add(layer);
     },
+    drawArrow(stage) {
+        let layer = new Konva.Layer();
+
+        let arrow = new Konva.Rect({
+            x: 10,
+            y: 20,
+            width: 100,
+            height: 50,
+            fill: 'gray',
+            stroke: 'black',
+            strokeWidth: 1,
+            draggable: true,
+            shadowColor: 'silver',
+            shadowBlur: 0,
+            shadowOffset: { x: 8, y: 8 },
+            shadowOpacity: 0.6
+        });
+        // add the shape to the layer
+        layer.add(arrow);
+
+        stage.add(layer);
+    },
     // drawRectangle2(stage) {
     //    let layer = new Konva.Layer();
     //    let rect2 = new Konva.Rect({
@@ -286,7 +308,10 @@ export default Component.extend({
             //alert('clicked on Save button');
             context.set('flag', 'save-button');
         })
-        
+        document.querySelector('#button5').addEventListener('click', () => {
+            //alert('clicked on Save button');
+            context.set('flag', 'arrow-button');
+        })
         layer.draw();
         
     },
